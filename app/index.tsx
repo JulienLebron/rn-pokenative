@@ -1,19 +1,22 @@
 import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemedText } from "./components/ThemedText";
+import { useThemeColors } from "@/hooks/useThemeColors";
+import { Card } from "./components/Card";
 
 export default function Index() {
+  const colors = useThemeColors();
   return (
-    <SafeAreaView
-      style={styles.container}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Link href="/about">A propos</Link>
-      <Link href={{pathname: '/pokemon/[id]', params: {id: 3}}}>Pokemon 3</Link>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.tint }]}>
+      <StatusBar backgroundColor={colors.tint} barStyle="light-content" />
+      <Card>
+        <ThemedText variant="headline">Pokédex</ThemedText>
+      </Card>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {backgroundColor: '#FF0000', flex: 1}
-})
+  container: { flex: 1, paddingTop: 24 },
+});
