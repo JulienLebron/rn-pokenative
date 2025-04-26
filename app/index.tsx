@@ -1,4 +1,3 @@
-import { Link } from "expo-router";
 import {
   FlatList,
   Image,
@@ -12,13 +11,13 @@ import { ThemedText } from "./components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Card } from "./components/Card";
 import { PokemonCard } from "./components/pokemon/PokemonCard";
+import { useFetchQuery } from "@/hooks/useFecthQuery";
+import { getPokemonId } from "./functions/pokemon";
 
 export default function Index() {
   const colors = useThemeColors();
-  const pokemons = Array.from({ length: 35 }, (_, k) => ({
-    name: "Pokémon name",
-    id: k + 1,
-  }));
+  const { data } = useFetchQuery("/pokemon?limit=200");
+  const pokemons = data?.results ?? [];
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.tint }]}>
       <StatusBar backgroundColor={colors.tint} barStyle="light-content" />
@@ -40,12 +39,12 @@ export default function Index() {
           columnWrapperStyle={styles.gridGap}
           renderItem={({ item }) => (
             <PokemonCard
-              id={item.id}
+              id={getPokemonId(item.url)}
               name={item.name}
               style={{ flex: 1 / 3 }}
             />
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.url}
         />
       </Card>
     </SafeAreaView>
