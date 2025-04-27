@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   StatusBar,
@@ -11,13 +12,14 @@ import { ThemedText } from "./components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Card } from "./components/Card";
 import { PokemonCard } from "./components/pokemon/PokemonCard";
-import { useFetchQuery } from "@/hooks/useFecthQuery";
+import { useInfiniteFetchQuery } from "@/hooks/useFecthQuery";
 import { getPokemonId } from "./functions/pokemon";
 
 export default function Index() {
   const colors = useThemeColors();
-  const { data } = useFetchQuery("/pokemon?limit=200");
-  const pokemons = data?.results ?? [];
+  const { data, isFetching, fetchNextPage } =
+    useInfiniteFetchQuery("/pokemon?limit=21");
+  const pokemons = data?.pages.flatMap((page) => page.results) ?? [];
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.tint }]}>
       <StatusBar backgroundColor={colors.tint} barStyle="light-content" />
@@ -37,6 +39,10 @@ export default function Index() {
           numColumns={3}
           contentContainerStyle={[styles.gridGap, styles.list]}
           columnWrapperStyle={styles.gridGap}
+          ListFooterComponent={
+            isFetching ? <ActivityIndicator color={colors.tint} /> : null
+          }
+          onEndReached={() => fetchNextPage()}
           renderItem={({ item }) => (
             <PokemonCard
               id={getPokemonId(item.url)}
