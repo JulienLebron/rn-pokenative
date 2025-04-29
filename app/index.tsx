@@ -4,10 +4,7 @@ import {
   Image,
   StatusBar,
   StyleSheet,
-  Text,
-  View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "./components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Card } from "./components/Card";
@@ -18,6 +15,7 @@ import { SearchBar } from "./components/SearchBar";
 import { useState } from "react";
 import { Row } from "./components/Row";
 import { SortButton } from "./components/SortButton";
+import { RootView } from "./components/RootView";
 
 export default function Index() {
   const colors = useThemeColors();
@@ -39,8 +37,8 @@ export default function Index() {
   ].sort((a, b) => (a[sortKey] < b[sortKey] ? -1 : 1));
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.tint }]}>
-      <StatusBar backgroundColor={colors.tint} barStyle="light-content" />
+    <RootView>
+      <StatusBar barStyle="light-content" />
       <Row style={styles.header} gap={16}>
         <Image
           source={require("@/assets/images/pokeball.png")}
@@ -75,7 +73,7 @@ export default function Index() {
           keyExtractor={(item) => item.id.toString()}
         />
       </Card>
-    </SafeAreaView>
+    </RootView>
   );
 }
 
