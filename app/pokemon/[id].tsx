@@ -7,6 +7,7 @@ import { useFetchQuery } from "@/hooks/useFecthQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Colors } from "../constants/Colors";
 import {
+  basePokemonStats,
   formatSize,
   formatWeight,
   getPokemonArtwork,
@@ -29,8 +30,9 @@ export default function Pokemon() {
   const bio = species?.flavor_text_entries
     ?.find(({ language }) => language.name === "en")
     ?.flavor_text.replaceAll("\n", ". ");
+  const stats = pokemon?.stats ?? basePokemonStats;
   return (
-    <RootView style={{ backgroundColor: colorType }}>
+    <RootView backgroundColor={colorType}>
       <View>
         <Image
           style={styles.pokeball}
@@ -65,7 +67,7 @@ export default function Pokemon() {
             height={200}
           />
           <Card style={styles.card}>
-            <Row gap={16}>
+            <Row gap={16} style={{ height: 20 }}>
               {types.map((type) => (
                 <PokemonType name={type.type.name} key={type.type.name} />
               ))}
@@ -111,7 +113,7 @@ export default function Pokemon() {
               Base Stats
             </ThemedText>
             <View style={{ alignSelf: "stretch" }}>
-              {pokemon?.stats.map((stat) => (
+              {stats.map((stat) => (
                 <PokemonStat
                   key={stat.stat.name}
                   name={stat.stat.name}
