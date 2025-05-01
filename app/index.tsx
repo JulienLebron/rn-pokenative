@@ -42,8 +42,7 @@ export default function Index() {
       <Row style={styles.header} gap={16}>
         <Image
           source={require("@/assets/images/pokeball.png")}
-          width={24}
-          height={24}
+          style={{ width: 24, height: 24 }}
         />
         <ThemedText variant="headline" color="grayLight">
           Pokédex

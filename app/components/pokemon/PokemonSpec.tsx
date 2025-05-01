@@ -24,7 +24,7 @@ export function PokemonSpec({
   return (
     <View style={[style, styles.root]} {...rest}>
       <Row>
-        {image && <Image source={image} width={16} height={16} />}
+        {image && <Image source={image} style={{ width: 16, height: 16 }} />}
         <ThemedText>{title}</ThemedText>
       </Row>
       <ThemedText variant="caption" color="grayMedium">

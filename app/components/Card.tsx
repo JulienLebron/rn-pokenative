@@ -8,7 +8,7 @@ export function Card({ style, ...rest }: Props) {
   const colors = useThemeColors();
   return (
     <View
-      style={[style, styles, { backgroundColor: colors.grayWhite }]}
+      style={[styles, { backgroundColor: colors.grayWhite }, style]}
       {...rest}
     />
   );
@@ -16,6 +16,5 @@ export function Card({ style, ...rest }: Props) {
 
 const styles = {
   borderRadius: 8,
-  overflow: "hidden",
   ...Shadows.dp2,
 } satisfies ViewStyle;
