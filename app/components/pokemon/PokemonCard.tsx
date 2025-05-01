@@ -30,8 +30,7 @@ export function PokemonCard({ style, id, name }: Props) {
             source={{
               uri: getPokemonArtwork(id),
             }}
-            width={72}
-            height={72}
+            style={{ width: 72, height: 72 }}
           />
           <ThemedText>{name}</ThemedText>
         </Card>

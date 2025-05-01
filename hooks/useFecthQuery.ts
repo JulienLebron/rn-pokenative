@@ -45,16 +45,13 @@ export function useFetchQuery<T extends keyof API>(
   path: T,
   params?: Record<string, string | number>
 ) {
-  const localUrl =
-    endpoint +
-    Object.entries(params ?? {}).reduce(
-      (acc, [key, value]) => acc.replaceAll(`[${key}]`, value),
-      path
-    );
+  const localUrl = Object.entries(params ?? {}).reduce(
+    (acc: string, [key, value]) => acc.replaceAll(`[${key}]`, String(value)),
+    endpoint + path
+  );
   return useQuery({
     queryKey: [localUrl],
     queryFn: async () => {
-      await wait(1);
       return fetch(localUrl, {
         headers: {
           Accept: "application/json",
@@ -69,7 +66,6 @@ export function useInfiniteFetchQuery<T extends keyof API>(path: T) {
     queryKey: [path],
     initialPageParam: endpoint + path,
     queryFn: async ({ pageParam }) => {
-      await wait(1);
       return fetch(pageParam, {
         headers: {
           Accept: "application/json",

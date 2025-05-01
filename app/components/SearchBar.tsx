@@ -16,8 +16,7 @@ export function SearchBar({ value, onChange }: Props) {
     >
       <Image
         source={require("@/assets/images/search.png")}
-        width={16}
-        height={16}
+        style={{ width: 16, height: 16 }}
       />
       <TextInput style={styles.input} onChangeText={onChange} value={value} />
     </Row>
