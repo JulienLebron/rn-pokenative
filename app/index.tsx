@@ -38,7 +38,7 @@ export default function Index() {
 
   return (
     <RootView>
-      <StatusBar barStyle="light-content" />
+      <StatusBar hidden />
       <Row style={styles.header} gap={16}>
         <Image
           source={require("@/assets/images/pokeball.png")}
