@@ -57,5 +57,6 @@ export function RootView({ style, backgroundColor, ...rest }: Props) {
 
 const rootStyle = {
   flex: 1,
-  padding: 4,
+  paddingHorizontal: 4,
+  paddingVertical: 20,
 } satisfies ViewStyle;
